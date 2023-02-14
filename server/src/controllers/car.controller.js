@@ -1,4 +1,4 @@
-import { carValidation } from "../validations/car.validation";
+import { carValidation } from "../validations/car.validation.js";
 import { createCar, getAll, getById, updateCar, deleteCar, getByParam } from "../repositorys/car.repository.js";
 
 export const create = async (req, res) => {
