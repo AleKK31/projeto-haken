@@ -1,24 +1,11 @@
 import { useState, useEffect} from 'react'
 import './App.css'
 import { default as lupa } from './assets/icons8-search.svg';
-import axios from 'axios'
 
 
 function App() {
   const [lista, setLista] = useState([])
-  const [data, setData] = useState(0);
-
-
-  useEffect(() => {
-    axios.get('http://localhost:3001/car')
-    .then(() => {
-        console.log("deu certo");
-    }).catch(() => {
-        console.log("deu errado");
-    })
-  }, [])
- 
-
+  
   function adicionarVeiculo() {
     const modelo = document.getElementById('modelo').value;
     const marca = document.getElementById('marca').value;
@@ -69,103 +56,102 @@ function App() {
     cancelar.addEventListener('click', () => {
         modalcontainer.classList.remove('abrir');                       
     })
-
   }, [])
 
   return (
     <div className="App">
-        <header class = "cabeçalho">
-            <h3 class = "cabeçalho-titulo">*LOGO*| Auto HK</h3>
-            <p class = "cabeçalho-texto">Buscador de veículos</p>
-        </header>
+      <header class = "cabeçalho">
+        <h3 class = "cabeçalho-titulo">*LOGO*| Auto HK</h3>
+        <p class = "cabeçalho-texto">Buscador de veículos</p>
+    </header>
 
-        <main class = "conteudo">
-            <div class = "div-conteudo-botao">
-                <input type="text" class = "buscar-input" placeholder="Pesquisar"/>
-                <a href="#" class="botao-busca">
-                <img src={lupa}  alt = "lupa"/>
-                </a>
-            </div>
+    <main class = "conteudo">
+        <div class = "div-conteudo-botao">
+            <input type="text" class = "buscar-input" placeholder="Pesquisar"/>
+            <a href="#" class="botao-busca">
+            <img src={lupa}  alt = "lupa"/>
+            </a>
+        </div>
 
-            <div class = "div-conteudo-principal">
-                <div class = "div-conteudo-principal-lista">
-                    <h3 class = "conteudo-principal-lista-titulo">Lista de veículos </h3>
-                    <div class = "div-conteudo-principal-lista-veiculos">
-                    <ul id="lista">
-                    {lista.map((veiculo, index) => (
-                        <li class = "item" onClick={mostrarDetalhe} key={index}><strong>{veiculo.marca}  {veiculo.modelo}</strong>  <br/>
-                        {veiculo.ano} | vendido:{veiculo.vendido}</li>
-                    ))}
-                    </ul> 
-                    </div>
-                    <div class = "div-adicionar-veiculo">
-                        <button class = "adicionar-veiculo-botao" id="abrir">Adicionar veículo</button>
-                        <div class = "modal-container" id="modalcontainer">                         
-                            <div class = "container">
-                                <h1 class = "titulo-principal">Novo veículo</h1>
-                                <div class = "div-conteudo">
-                                    <div class = "div.conteudo-inputs">
-                                        <div class = "conteudo-input-box">
-                                            <label for="modelo">Modelo</label>
-                                            <input type="text" name="modelo" id="modelo" placeholder="Modelo" required autocomplete="off"/>
-                                        </div>
-                                        <div class = "conteudo-input-box">
-                                            <label for="marca">Marca</label>
-                                            <input type="text" name="marca" id="marca" placeholder="Marca" autocomplete="off"/>
-                                        </div>
-                                        <div class = "conteudo-input-box">
-                                            <label for="modelo">Ano</label>
-                                            <input type="number" name="ano" id="ano" placeholder="Ano" autocomplete="off"/>
-                                        </div>
+        <div class = "div-conteudo-principal">
+            <div class = "div-conteudo-principal-lista">
+                <h3 class = "conteudo-principal-lista-titulo">Lista de veículos </h3>
+                <div class = "div-conteudo-principal-lista-veiculos">
+                <ul id="lista">
+                  {lista.map((veiculo, index) => (
+                    <li class = "item" onClick={mostrarDetalhe} key={index}><strong>{veiculo.marca}  {veiculo.modelo}</strong>  <br/>
+                    {veiculo.ano} | vendido:{veiculo.vendido}</li>
+                  ))}
+                </ul> 
+                </div>
+                <div class = "div-adicionar-veiculo">
+                    <button class = "adicionar-veiculo-botao" id="abrir">Adicionar veículo</button>
+                    <div class = "modal-container" id="modalcontainer">                         
+                        <div class = "container">
+                            <h1 class = "titulo-principal">Novo veículo</h1>
+                            <div class = "div-conteudo">
+                                <div class = "div.conteudo-inputs">
+                                    <div class = "conteudo-input-box">
+                                        <label for="modelo">Modelo</label>
+                                        <input type="text" name="modelo" id="modelo" placeholder="Modelo" required autocomplete="off"/>
                                     </div>
-                                    <div class = "div-venda-inputs">
-                                        <div class = "venda-titulo">
-                                            <h4>vendido</h4>
-                                        </div>
-                                        <div class = "div-venda-grupo">
-                                            <div class = "venda-input" id="venda-input">
-                                                <input type="radio" name="radio" id="sim" value="sim"/>
-                                                <label for="sim">Sim</label>
-                                            </div>
-                                            <div class = "venda-input" id="venda-input">
-                                                <input type="radio" name="radio" id="nao" value="nao"/>
-                                                <label for="nao">Não</label>
-                                            </div>
-                                                
-                                        </div>
+                                    <div class = "conteudo-input-box">
+                                        <label for="marca">Marca</label>
+                                        <input type="text" name="marca" id="marca" placeholder="Marca" autocomplete="off"/>
                                     </div>
-                        
-                                </div>
-                                <div class = "div-descriçao">
-                                    <div class = "descriçao-input">
-                                        <label for="descriçao">Descrição</label>
-                                        <textarea cols="30" rows="5" class="caixa-descriçao" placeholder="Descrição" id="descriçao"></textarea>
+                                    <div class = "conteudo-input-box">
+                                        <label for="modelo">Ano</label>
+                                        <input type="number" name="ano" id="ano" placeholder="Ano" autocomplete="off"/>
                                     </div>
                                 </div>
-                                <div class = "div.botoes"> 
-                                    <button class="botao-adicionar" onClick={adicionarVeiculo}>Adicionar</button>
-                                    <button class = "botao-cancelar" id="cancelar">Cancelar</button> 
+                                <div class = "div-venda-inputs">
+                                    <div class = "venda-titulo">
+                                        <h4>vendido</h4>
+                                    </div>
+                                    <div class = "div-venda-grupo">
+                                        <div class = "venda-input" id="venda-input">
+                                            <input type="radio" name="radio" id="sim" value="sim"/>
+                                            <label for="sim">Sim</label>
+                                        </div>
+                                        <div class = "venda-input" id="venda-input">
+                                            <input type="radio" name="radio" id="nao" value="nao"/>
+                                            <label for="nao">Não</label>
+                                        </div>
+                                            
+                                    </div>
+                                </div>
+                    
+                            </div>
+                            <div class = "div-descriçao">
+                                <div class = "descriçao-input">
+                                    <label for="descriçao">Descrição</label>
+                                    <textarea cols="30" rows="5" class="caixa-descriçao" placeholder="Descrição" id="descriçao"></textarea>
                                 </div>
                             </div>
-                        </div>                                                                 
-                    </div>
-                </div>
-
-                <div class = "div-conteudo-principal-detalhes">
-                    
-                    <h3 class = "conteudo-principal-detalhes-titulo">Detalhes do Veículo </h3>
-                    <div class = "div-conteudo-principal-detalhes-veiculo" >
-                        <ul id = "detalhes">
-                        
-                        </ul>
-                    </div>
-                    <div class = "div-editar-botao">
-                        <button class = "editar-botao" onClick="editarVeiculo()">Editar veículo</button>
-                    </div>
-                    
+                            <div class = "div.botoes"> 
+                                <button class="botao-adicionar" onClick={adicionarVeiculo}>Adicionar</button>
+                                <button class = "botao-cancelar" id="cancelar">Cancelar</button> 
+                            </div>
+                        </div>
+                    </div>                                                                 
                 </div>
             </div>
-        </main>
+
+            <div class = "div-conteudo-principal-detalhes">
+                
+                <h3 class = "conteudo-principal-detalhes-titulo">Detalhes do Veículo </h3>
+                <div class = "div-conteudo-principal-detalhes-veiculo" >
+                    <ul id = "detalhes">
+                    
+                    </ul>
+                </div>
+                <div class = "div-editar-botao">
+                    <button class = "editar-botao" onClick="editarVeiculo()">Editar veículo</button>
+                </div>
+                
+            </div>
+        </div>
+    </main>
     </div>
   )
 }
